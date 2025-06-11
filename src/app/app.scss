@@ -1,0 +1,35 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+
+.content-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #f8f9fa;
+}
+
+// Cuando la barra lateral está colapsada
+:host ::ng-deep .sidebar.collapsed + .main-content {
+  margin-left: 70px;
+}
+
+@media (max-width: 992px) {
+  .main-content {
+    margin-left: 0;
+  }
+  
+  :host ::ng-deep .sidebar.collapsed + .main-content {
+    margin-left: 70px;
+  }
+}
+

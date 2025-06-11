@@ -1,0 +1,263 @@
+.navbar {
+  background: linear-gradient(135deg, #2c3e50, #1a252f);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  padding: 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+  }
+  
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+.brand-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.brand-subtitle {
+  font-size: 0.8rem;
+  color: #8aa4be;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+  
+  &:hover, &:focus {
+    color: #ffffff;
+    
+    &::after {
+      width: 100%;
+      left: 0;
+    }
+  }
+}
+
+.notification-icon {
+  position: relative;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  
+  fa-icon {
+    transition: transform 0.2s ease;
+  }
+  
+  &:hover fa-icon {
+    transform: scale(1.1);
+  }
+}
+
+.notification-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  width: 350px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease-out;
+  transform-origin: top right;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  
+  h6 {
+    margin: 0;
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+  
+  .btn-close {
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.notification-body {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  padding: 15px;
+  border-bottom: 1px solid #e9ecef;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: #f8f9fa;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.notification-icon {
+  margin-right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  &.notification-warning {
+    background-color: #ffeeba;
+    color: #856404;
+  }
+  
+  &.notification-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+  }
+  
+  &.notification-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  &.notification-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.notification-message {
+  margin: 5px 0;
+  font-size: 0.85rem;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+.notification-date {
+  color: #adb5bd;
+  font-size: 0.75rem;
+}
+
+.no-notifications {
+  padding: 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  animation: fadeIn 0.3s ease-out;
+  transform-origin: top right;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  
+  &:hover, &:focus {
+    background-color: rgba(52, 152, 219, 0.1);
+    color: var(--accent-color);
+  }
+  
+  fa-icon {
+    width: 20px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .notification-dropdown {
+    width: 100%;
+    top: 56px;
+    right: 0;
+    border-radius: 0;
+  }
+}
+

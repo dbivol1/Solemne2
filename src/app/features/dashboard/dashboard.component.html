@@ -1,0 +1,201 @@
+<div class="dashboard-container">
+  <h1 class="page-title">Dashboard</h1>
+  
+  <!-- Tarjetas de estadísticas -->
+  <div class="row stats-cards">
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <fa-icon [icon]="faProjectDiagram"></fa-icon>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-value">{{ totalProjects }}</h3>
+          <p class="stat-label">Proyectos Totales</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="stat-card">
+        <div class="stat-icon completed">
+          <fa-icon [icon]="faCheckCircle"></fa-icon>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-value">{{ completedProjects }}</h3>
+          <p class="stat-label">Proyectos Completados</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="stat-card">
+        <div class="stat-icon in-progress">
+          <fa-icon [icon]="faSpinner"></fa-icon>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-value">{{ inProgressProjects }}</h3>
+          <p class="stat-label">En Progreso</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6 col-lg-3 mb-4">
+      <div class="stat-card">
+        <div class="stat-icon delayed">
+          <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+        </div>
+        <div class="stat-content">
+          <h3 class="stat-value">{{ delayedProjectsCount }}</h3>
+          <p class="stat-label">Proyectos Atrasados</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Progreso general -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <fa-icon [icon]="faChartPie"></fa-icon>
+            Progreso General
+          </h2>
+        </div>
+        <div class="card-body">
+          <div class="overall-progress">
+            <div class="progress-info">
+              <span class="progress-label">Progreso promedio de todos los proyectos</span>
+              <span class="progress-value">{{ averageProgress }}%</span>
+            </div>
+            <app-progress-bar [progress]="averageProgress"></app-progress-bar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Proyectos recientes y atrasados -->
+  <div class="row">
+    <div class="col-lg-6 mb-4">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <fa-icon [icon]="faCalendarAlt"></fa-icon>
+            Proyectos Recientes
+          </h2>
+          <a routerLink="/projects" class="btn btn-sm btn-outline-primary">Ver todos</a>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Proyecto</th>
+                  <th>Cliente</th>
+                  <th>Estado</th>
+                  <th>Progreso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let project of recentProjects">
+                  <td>
+                    <a [routerLink]="['/projects', project.id]" class="project-link">
+                      {{ project.name }}
+                    </a>
+                  </td>
+                  <td>{{ project.client }}</td>
+                  <td>
+                    <app-status-badge [status]="project.status"></app-status-badge>
+                  </td>
+                  <td>
+                    <app-progress-bar [progress]="project.progress"></app-progress-bar>
+                  </td>
+                </tr>
+                <tr *ngIf="recentProjects.length === 0">
+                  <td colspan="4" class="text-center">No hay proyectos recientes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-lg-6 mb-4">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <fa-icon [icon]="faExclamationTriangle"></fa-icon>
+            Proyectos Atrasados
+          </h2>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Proyecto</th>
+                  <th>Cliente</th>
+                  <th>Prioridad</th>
+                  <th>Progreso</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let project of delayedProjects">
+                  <td>
+                    <a [routerLink]="['/projects', project.id]" class="project-link">
+                      {{ project.name }}
+                    </a>
+                  </td>
+                  <td>{{ project.client }}</td>
+                  <td>
+                    <span class="priority-badge" [ngClass]="{
+                      'priority-high': project.priority === 'Alta',
+                      'priority-medium': project.priority === 'Media',
+                      'priority-low': project.priority === 'Baja'
+                    }">{{ project.priority }}</span>
+                  </td>
+                  <td>
+                    <app-progress-bar [progress]="project.progress"></app-progress-bar>
+                  </td>
+                </tr>
+                <tr *ngIf="delayedProjects.length === 0">
+                  <td colspan="4" class="text-center">No hay proyectos atrasados</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Distribución de clientes -->
+  <div class="row">
+    <div class="col-12 mb-4">
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h2 class="card-title">
+            <fa-icon [icon]="faUsers"></fa-icon>
+            Distribución de Clientes
+          </h2>
+        </div>
+        <div class="card-body">
+          <div class="client-distribution">
+            <div class="client-item" *ngFor="let client of clients">
+              <div class="client-info">
+                <span class="client-name">{{ client }}</span>
+                <span class="client-count">{{ getClientProjectCount(client) }} proyectos</span>
+              </div>
+              <div class="client-progress">
+                <app-progress-bar [progress]="getClientProgress(client)"></app-progress-bar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

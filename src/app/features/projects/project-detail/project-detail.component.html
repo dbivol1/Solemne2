@@ -1,0 +1,250 @@
+<div class="project-detail-container" *ngIf="project">
+  <div class="project-header">
+    <div class="back-button">
+      <a routerLink="/projects" class="btn btn-outline-secondary">
+        <fa-icon [icon]="faArrowLeft"></fa-icon>
+        <span class="ms-1">Volver</span>
+      </a>
+    </div>
+    
+    <div class="project-title">
+      <h1>{{ project.name }}</h1>
+      <app-status-badge [status]="project.status"></app-status-badge>
+    </div>
+    
+    <div class="project-actions">
+      <button class="btn btn-outline-primary me-2">
+        <fa-icon [icon]="faEdit"></fa-icon>
+        <span class="ms-1">Editar</span>
+      </button>
+      <button class="btn btn-outline-danger">
+        <fa-icon [icon]="faTrash"></fa-icon>
+        <span class="ms-1">Eliminar</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="project-tabs">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'info'" (click)="setActiveTab('info')">
+          Información
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'deliverables'" (click)="setActiveTab('deliverables')">
+          Entregables
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'comments'" (click)="setActiveTab('comments')">
+          Comentarios
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="tab-content">
+    <!-- Pestaña de Información -->
+    <div class="tab-pane" [class.active]="activeTab === 'info'">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="info-card">
+            <h2 class="card-title">Detalles del Proyecto</h2>
+            
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="info-label">Cliente:</span>
+                <span class="info-value">{{ project.client }}</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Prioridad:</span>
+                <span class="info-value" [ngClass]="{
+                  'priority-high': project.priority === 'Alta',
+                  'priority-medium': project.priority === 'Media',
+                  'priority-low': project.priority === 'Baja'
+                }">{{ project.priority }}</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Fecha de inicio:</span>
+                <span class="info-value">{{ formatDate(project.startDate) }}</span>
+              </div>
+              
+              <div class="info-item">
+                <span class="info-label">Fecha de finalización:</span>
+                <span class="info-value">{{ formatDate(project.endDate) }}</span>
+              </div>
+            </div>
+            
+            <div class="project-description" *ngIf="project.description">
+              <h3>Descripción</h3>
+              <p>{{ project.description }}</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="progress-card">
+            <h2 class="card-title">Progreso</h2>
+            
+            <div class="progress-circle">
+              <div class="progress-value">{{ project.progress }}%</div>
+            </div>
+            
+            <div class="progress-info">
+              <app-progress-bar [progress]="project.progress"></app-progress-bar>
+            </div>
+            
+            <div class="deliverables-summary">
+              <div class="summary-item">
+                <span class="summary-label">Total de entregables:</span>
+                <span class="summary-value">{{ project.deliverables?.length || 0 }}</span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="summary-label">Entregables completados:</span>
+                <span class="summary-value">{{ getCompletedDeliverables() }}</span>
+              </div>
+              
+              <div class="summary-item">
+                <span class="summary-label">Entregables pendientes:</span>
+                <span class="summary-value">{{ getPendingDeliverables() }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pestaña de Entregables -->
+    <div class="tab-pane" [class.active]="activeTab === 'deliverables'">
+      <div class="deliverables-container">
+        <div class="deliverables-header">
+          <h2>Entregables</h2>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDeliverableModal">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            <span class="ms-1">Nuevo Entregable</span>
+          </button>
+        </div>
+        
+        <div class="deliverables-list">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                  <th>Fecha de entrega</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let deliverable of project.deliverables">
+                  <td>{{ deliverable.name }}</td>
+                  <td>{{ deliverable.description }}</td>
+                  <td>{{ formatDate(deliverable.dueDate) }}</td>
+                  <td>
+                    <span class="badge" [ngClass]="deliverable.isDelivered ? 'bg-success' : 'bg-warning'">
+                      {{ deliverable.isDelivered ? 'Entregado' : 'Pendiente' }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm" 
+                            [ngClass]="deliverable.isDelivered ? 'btn-outline-warning' : 'btn-outline-success'"
+                            (click)="toggleDeliverableStatus(deliverable)">
+                      <fa-icon [icon]="deliverable.isDelivered ? faTimes : faCheck"></fa-icon>
+                      <span class="ms-1">{{ deliverable.isDelivered ? 'Marcar como pendiente' : 'Marcar como entregado' }}</span>
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="!project.deliverables || project.deliverables.length === 0">
+                  <td colspan="5" class="text-center">No hay entregables registrados</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pestaña de Comentarios -->
+    <div class="tab-pane" [class.active]="activeTab === 'comments'">
+      <div class="comments-container">
+        <h2>Comentarios</h2>
+        
+        <div class="comments-list">
+          <div class="comment-item" *ngFor="let comment of project.comments" [ngClass]="{'client-comment': comment.isClient}">
+            <div class="comment-header">
+              <div class="comment-author">
+                <strong>{{ comment.author }}</strong>
+                <span class="comment-badge" *ngIf="comment.isClient">Cliente</span>
+              </div>
+              <div class="comment-date">{{ formatDate(comment.date) }}</div>
+            </div>
+            <div class="comment-content">
+              {{ comment.content }}
+            </div>
+          </div>
+          
+          <div class="no-comments" *ngIf="!project.comments || project.comments.length === 0">
+            <p>No hay comentarios para este proyecto</p>
+          </div>
+        </div>
+        
+        <div class="add-comment">
+          <h3>Agregar comentario</h3>
+          <div class="form-group">
+            <textarea class="form-control" rows="3" placeholder="Escribe tu comentario aquí..." [(ngModel)]="newComment"></textarea>
+          </div>
+          <button class="btn btn-primary mt-2" (click)="addComment()" [disabled]="!newComment.trim()">
+            Enviar comentario
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="project-not-found" *ngIf="!project">
+  <h2>Proyecto no encontrado</h2>
+  <p>El proyecto que estás buscando no existe o ha sido eliminado.</p>
+  <a routerLink="/projects" class="btn btn-primary">Volver a la lista de proyectos</a>
+</div>
+
+<!-- Modal para agregar entregable -->
+<div class="modal fade" id="addDeliverableModal" tabindex="-1" aria-labelledby="addDeliverableModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDeliverableModalLabel">Nuevo Entregable</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="deliverableName" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="deliverableName" [(ngModel)]="newDeliverable.name" name="name">
+          </div>
+          <div class="mb-3">
+            <label for="deliverableDescription" class="form-label">Descripción</label>
+            <textarea class="form-control" id="deliverableDescription" rows="3" [(ngModel)]="newDeliverable.description" name="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="deliverableDueDate" class="form-label">Fecha de entrega</label>
+            <input type="date" class="form-control" id="deliverableDueDate" [(ngModel)]="newDeliverable.dueDate" name="dueDate">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="addDeliverable()" data-bs-dismiss="modal" [disabled]="!newDeliverable.name || !newDeliverable.description">
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

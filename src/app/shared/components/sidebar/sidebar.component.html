@@ -1,0 +1,56 @@
+<div class="sidebar" [class.collapsed]="collapsed">
+  <div class="sidebar-header">
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+  
+  <div class="sidebar-content">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">
+          <fa-icon [icon]="faTachometerAlt"></fa-icon>
+          <span class="nav-text" *ngIf="!collapsed">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/projects" routerLinkActive="active">
+          <fa-icon [icon]="faProjectDiagram"></fa-icon>
+          <span class="nav-text" *ngIf="!collapsed">Proyectos</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/deliverables" routerLinkActive="active">
+          <fa-icon [icon]="faClipboardList"></fa-icon>
+          <span class="nav-text" *ngIf="!collapsed">Entregables</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/notifications" routerLinkActive="active">
+          <fa-icon [icon]="faBell"></fa-icon>
+          <span class="nav-text" *ngIf="!collapsed">Notificaciones</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/reports" routerLinkActive="active">
+          <fa-icon [icon]="faChartBar"></fa-icon>
+          <span class="nav-text" *ngIf="!collapsed">Reportes</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/clients" routerLinkActive="active">
+          <fa-icon [icon]="faUsers"></fa-icon>
+          <span class="nav-text" *ngIf="!collapsed">Clientes</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="sidebar-footer">
+    <a class="nav-link" routerLink="/settings" routerLinkActive="active">
+      <fa-icon [icon]="faCog"></fa-icon>
+      <span class="nav-text" *ngIf="!collapsed">Configuración</span>
+    </a>
+  </div>
+</div>
+

@@ -1,0 +1,48 @@
+<div class="notifications-container">
+  <div class="notifications-header">
+    <h1 class="page-title">Notificaciones</h1>
+    
+    <div class="header-actions">
+      <button class="btn btn-outline-primary" (click)="markAllAsRead()" [disabled]="isAllReadDisabled()">
+        <fa-icon [icon]="faCheck"></fa-icon>
+        <span class="ms-1">Marcar todas como leídas</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="notifications-content">
+    <div class="notification-item" *ngFor="let notification of notifications" [class.read]="notification.read">
+      <div class="notification-icon" [ngClass]="getNotificationClass(notification)">
+        <fa-icon [icon]="getNotificationIcon(notification.type)"></fa-icon>
+      </div>
+      
+      <div class="notification-content">
+        <div class="notification-header">
+          <h3 class="notification-title">{{ notification.title }}</h3>
+          <span class="notification-date">{{ formatDate(notification.date) }}</span>
+        </div>
+        
+        <p class="notification-message">{{ notification.message }}</p>
+        
+        <div class="notification-actions">
+          <button class="btn btn-sm btn-outline-primary" *ngIf="hasProjectId(notification)" [routerLink]="getProjectLink(notification)">
+            Ver proyecto
+          </button>
+          
+          <button class="btn btn-sm btn-outline-secondary" *ngIf="!notification.read" (click)="markAsRead(notification.id)">
+            Marcar como leída
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="no-notifications" *ngIf="hasNoNotifications()">
+      <div class="empty-state">
+        <fa-icon [icon]="faBell" class="empty-icon"></fa-icon>
+        <h3>No tienes notificaciones</h3>
+        <p>Cuando tengas notificaciones, aparecerán aquí.</p>
+      </div>
+    </div>
+  </div>
+</div>
+

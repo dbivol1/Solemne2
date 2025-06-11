@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <span class="brand-text">FreeWorks</span>
+      <span class="brand-subtitle">Panel</span>
+    </a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link notification-icon" (click)="toggleNotifications()">
+            <fa-icon [icon]="faBell"></fa-icon>
+            <ng-container *ngIf="unreadCount$ | async as unreadCount">
+              <span class="notification-badge" *ngIf="unreadCount > 0">
+                {{ unreadCount }}
+              </span>
+            </ng-container>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <fa-icon [icon]="faUser"></fa-icon>
+            <span class="ms-2">Usuario</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
+            <li><a class="dropdown-item" href="#">Configuración</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="#">
+                <fa-icon [icon]="faSignOutAlt"></fa-icon>
+                <span class="ms-2">Cerrar sesión</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Dropdown de notificaciones -->
+<div class="notification-dropdown" *ngIf="showNotifications">
+  <div class="notification-header">
+    <h6 class="mb-0">Notificaciones</h6>
+    <button class="btn-close" (click)="toggleNotifications()"></button>
+  </div>
+  <div class="notification-body">
+    <!-- Aquí se mostrarán las notificaciones -->
+    <ng-container *ngIf="(notificationService.getNotifications() | async)?.length; else noNotifications">
+      <div class="notification-item" *ngFor="let notification of notificationService.getNotifications() | async">
+        <div class="notification-icon" [ngClass]="'notification-' + notification.type">
+          <fa-icon [icon]="faBell"></fa-icon>
+        </div>
+        <div class="notification-content">
+          <h6 class="notification-title">{{ notification.title }}</h6>
+          <p class="notification-message">{{ notification.message }}</p>
+          <small class="notification-date">{{ notification.date | date:'short' }}</small>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #noNotifications>
+      <div class="no-notifications">
+        <p>No hay notificaciones</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
+

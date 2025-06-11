@@ -1,0 +1,83 @@
+<div class="project-list-container">
+  <div class="project-list-header">
+    <h1 class="page-title">Lista de Proyectos</h1>
+    
+    <div class="header-actions">
+      <div class="search-container">
+        <div class="input-group">
+          <span class="input-group-text">
+            <fa-icon [icon]="faSearch"></fa-icon>
+          </span>
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Buscar proyectos..." 
+            [(ngModel)]="searchTerm"
+            (input)="applyFilters()">
+        </div>
+      </div>
+      
+      <button class="btn btn-outline-secondary" (click)="toggleFilters()">
+        <fa-icon [icon]="faFilter"></fa-icon>
+        <span class="ms-1">Filtros</span>
+      </button>
+      
+      <button class="btn btn-primary" routerLink="/projects/new">
+        <fa-icon [icon]="faPlus"></fa-icon>
+        <span class="ms-1">Nuevo Proyecto</span>
+      </button>
+    </div>
+  </div>
+  
+  <div class="filters-panel" *ngIf="showFilters">
+    <div class="row">
+      <div class="col-md-4 mb-3">
+        <label for="clientFilter" class="form-label">Cliente</label>
+        <select class="form-select" id="clientFilter" [(ngModel)]="clientFilter" (change)="applyFilters()">
+          <option value="">Todos los clientes</option>
+          <option *ngFor="let client of clients" [value]="client">{{ client }}</option>
+        </select>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <label for="statusFilter" class="form-label">Estado</label>
+        <select class="form-select" id="statusFilter" [(ngModel)]="statusFilter" (change)="applyFilters()">
+          <option value="">Todos los estados</option>
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
+      </div>
+      
+      <div class="col-md-4 mb-3">
+        <label for="priorityFilter" class="form-label">Prioridad</label>
+        <select class="form-select" id="priorityFilter" [(ngModel)]="priorityFilter" (change)="applyFilters()">
+          <option value="">Todas las prioridades</option>
+          <option *ngFor="let priority of priorities" [value]="priority">{{ priority }}</option>
+        </select>
+      </div>
+    </div>
+    
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-outline-secondary" (click)="resetFilters()">
+        Limpiar filtros
+      </button>
+    </div>
+  </div>
+  
+  <div class="project-grid">
+    <div class="row">
+      <div class="col-md-6 col-lg-4 mb-4" *ngFor="let project of filteredProjects">
+        <app-project-card [project]="project"></app-project-card>
+      </div>
+      
+      <div class="col-12" *ngIf="filteredProjects.length === 0">
+        <div class="no-projects">
+          <p>No se encontraron proyectos que coincidan con los criterios de búsqueda.</p>
+          <button class="btn btn-outline-primary" (click)="resetFilters()">
+            Limpiar filtros
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,38 @@
+<div class="project-card">
+  <div class="project-card-header">
+    <h3 class="project-title">{{ project.name }}</h3>
+    <app-status-badge [status]="project.status"></app-status-badge>
+  </div>
+  
+  <div class="project-card-body">
+    <div class="project-info">
+      <div class="info-item">
+        <span class="info-label">Cliente:</span>
+        <span class="info-value">{{ project.client }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Prioridad:</span>
+        <span class="info-value" [ngClass]="{
+          'priority-high': project.priority === 'Alta',
+          'priority-medium': project.priority === 'Media',
+          'priority-low': project.priority === 'Baja'
+        }">{{ project.priority }}</span>
+      </div>
+    </div>
+    
+    <div class="project-progress">
+      <div class="progress-info">
+        <span class="progress-label">Progreso:</span>
+        <span class="progress-value">{{ project.progress }}%</span>
+      </div>
+      <app-progress-bar [progress]="project.progress"></app-progress-bar>
+    </div>
+  </div>
+  
+  <div class="project-card-footer">
+    <button class="btn btn-outline-primary btn-sm" [routerLink]="['/projects', project.id]">
+      Ver detalles
+    </button>
+  </div>
+</div>
+
