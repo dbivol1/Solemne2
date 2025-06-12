@@ -31,7 +31,7 @@ Panel de control para freelancers de FreeWorks, una plataforma que conecta freel
 1. Clonar el repositorio:
    ```bash
    git clone "https://github.com/dbivol1/Solemne2"
-   cd freeworks-panel
+   cd Solemne-2-Aplicaciones
    ```
 
 2. Instalar dependencias:
@@ -50,12 +50,12 @@ Panel de control para freelancers de FreeWorks, una plataforma que conecta freel
 
 1. Construir la imagen:
    ```bash
-   docker build -t freeworks-panel .
+   docker build -t Solemne-2-Aplicaciones .
    ```
 
 2. Ejecutar el contenedor:
    ```bash
-   docker run -p 4200:80 freeworks-panel
+   docker run -p 4200:80 Solemne-2-Aplicaciones
    ```
 
 3. Abrir el navegador en `http://localhost:4200`
