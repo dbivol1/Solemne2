@@ -30,7 +30,7 @@ Panel de control para freelancers de FreeWorks, una plataforma que conecta freel
 
 1. Clonar el repositorio:
    ```bash
-   git clone https://github.com/freeworks/freeworks-panel.git
+   git clone "https://github.com/dbivol1/Solemne2"
    cd freeworks-panel
    ```
 
