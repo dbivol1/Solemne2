@@ -36,9 +36,6 @@ Solemne2/
 │ └── ...
 └── README.md
 
-shell
-Copiar
-Editar
 
 ## 🚀 Instrucciones para ejecutar
 
@@ -52,8 +49,8 @@ Abrir en: http://localhost:4200
 
 Backend
 bash
-Copiar
-Editar
+
+
 cd backend
 docker build -t freeworks-backend .
 docker run -it -p 8000:8000 freeworks-backend
@@ -66,6 +63,3 @@ El backend no está preparado para producción (usa servidor de desarrollo de Dj
 
 El almacenamiento de archivos está simulado.
 
-yaml
-Copiar
-Editar
