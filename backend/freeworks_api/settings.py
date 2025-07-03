@@ -19,11 +19,11 @@ INSTALLED_APPS = [
 
     # Terceros
     'rest_framework',
-    'proyectos',
     'corsheaders',
 
     # Tus apps
     'api',
+'proyectos',
 ]
 
 # Middleware

@@ -1,41 +1,71 @@
-# FreeWorks Panel
+# FreeWorks - Panel de Gestión para Freelancers
 
-**FreeWorks Panel** es una aplicación web que permite a freelancers gestionar sus proyectos de forma eficiente. El sistema está diseñado para ofrecer un entorno claro y organizado donde los trabajadores autónomos pueden visualizar, actualizar y dar seguimiento al progreso de sus tareas y entregables.
+FreeWorks es una aplicación web desarrollada como un MVP (Producto Mínimo Viable) que permite a freelancers gestionar sus proyectos, entregables, avances y comentarios de clientes de forma centralizada.
 
----
+## 🧩 Funcionalidades
 
-## ✨ Funcionalidades principales
+- Listado de proyectos activos, finalizados y pendientes.
+- Agregado de entregables con fecha, descripción y archivos simulados.
+- Visualización del progreso (%) de cada proyecto.
+- Control manual del estado del proyecto (En progreso, Finalizado, Atrasado).
+- Comentarios del cliente por cada proyecto.
+- Tablero resumen de proyectos con estado visual.
+- Filtros por cliente, estado y prioridad.
+- Búsqueda por nombre del proyecto o entregable.
+- Notificaciones por entregas atrasadas.
+- Conexión a una API REST con backend en Django.
+- Diseño profesional y modular en Angular.
 
-- **Panel de control** con resumen visual de todos los proyectos.
-- **Gestión de proyectos**: ver, editar y filtrar proyectos por cliente, estado o prioridad.
-- **Entregables**: agregar entregables con fechas, descripciones y archivos adjuntos.
-- **Progreso automático**: cálculo del avance general de cada proyecto en base a entregables completados.
-- **Búsqueda rápida**: localizar proyectos o entregables por nombre.
-- **Comentarios**: visualización de observaciones dejadas por los clientes.
-- **Alertas y notificaciones** por entregas atrasadas o pendientes.
+## 🛠️ Tecnologías Utilizadas
 
----
+- **Frontend:** Angular 19
+- **Backend:** Django REST Framework
+- **Base de datos:** SQLite (modo desarrollo)
+- **Contenerización:** Docker
+- **Control de versiones:** Git y GitHub
 
-## 🛠 Tecnologías utilizadas
+## 📦 Estructura del Proyecto
 
-- **Angular 17**
-- **SCSS + Bootstrap 5**
-- **Font Awesome**
-- **Chart.js** para visualizaciones
+Solemne2/
+├── backend/ # Proyecto Django (API REST)
+│ ├── Dockerfile
+│ ├── requirements.txt
+│ └── ...
+├── frontend/ # Aplicación Angular
+│ ├── src/
+│ └── ...
+└── README.md
 
----
+shell
+Copiar
+Editar
 
-## ⚙️ Requisitos
+## 🚀 Instrucciones para ejecutar
 
-- Node.js v18+
-- npm v9+
-- Angular CLI v17+
+### Frontend
 
----
+```bash
+cd frontend
+npm install
+ng serve
+Abrir en: http://localhost:4200
 
-## 🚀 Instrucciones de instalación
+Backend
+bash
+Copiar
+Editar
+cd backend
+docker build -t freeworks-backend .
+docker run -it -p 8000:8000 freeworks-backend
+API disponible en: http://localhost:8000/api/
 
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/dbivol1/Solemne2.git
-   cd Solemne2
+📌 Notas
+Esta aplicación fue desarrollada con fines académicos.
+
+El backend no está preparado para producción (usa servidor de desarrollo de Django).
+
+El almacenamiento de archivos está simulado.
+
+yaml
+Copiar
+Editar
