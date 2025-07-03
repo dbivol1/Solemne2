@@ -1,109 +1,41 @@
 # FreeWorks Panel
 
-Panel de control para freelancers de FreeWorks, una plataforma que conecta freelancers con clientes. Este panel permite a los trabajadores autónomos gestionar sus proyectos, entregables y avances.
+**FreeWorks Panel** es una aplicación web que permite a freelancers gestionar sus proyectos de forma eficiente. El sistema está diseñado para ofrecer un entorno claro y organizado donde los trabajadores autónomos pueden visualizar, actualizar y dar seguimiento al progreso de sus tareas y entregables.
 
-## Características
+---
 
-- **Gestión de proyectos**: Visualización y administración de proyectos activos, entregados y pendientes.
-- **Seguimiento de progreso**: Cálculo automático del porcentaje de avance de cada proyecto.
-- **Gestión de entregables**: Agregar entregables con fecha, descripción y archivos.
-- **Comentarios de clientes**: Registro y visualización de comentarios de los clientes.
-- **Tablero visual**: Dashboard con resumen visual de todos los proyectos.
-- **Filtrado avanzado**: Filtrar proyectos por cliente, estado y prioridad.
-- **Sistema de búsqueda**: Buscar por nombre de proyecto o entregable.
-- **Notificaciones**: Alertas por entregas atrasadas.
+## ✨ Funcionalidades principales
 
-## Tecnologías utilizadas
+- **Panel de control** con resumen visual de todos los proyectos.
+- **Gestión de proyectos**: ver, editar y filtrar proyectos por cliente, estado o prioridad.
+- **Entregables**: agregar entregables con fechas, descripciones y archivos adjuntos.
+- **Progreso automático**: cálculo del avance general de cada proyecto en base a entregables completados.
+- **Búsqueda rápida**: localizar proyectos o entregables por nombre.
+- **Comentarios**: visualización de observaciones dejadas por los clientes.
+- **Alertas y notificaciones** por entregas atrasadas o pendientes.
 
-- **Frontend**: Angular 17
-- **Estilos**: SCSS, Bootstrap 5
-- **Iconos**: Font Awesome
-- **Gráficos**: Chart.js
+---
 
-## Requisitos previos
+## 🛠 Tecnologías utilizadas
 
-- Node.js (v18 o superior)
-- npm (v9 o superior)
-- Angular CLI (v17 o superior)
+- **Angular 17**
+- **SCSS + Bootstrap 5**
+- **Font Awesome**
+- **Chart.js** para visualizaciones
 
-## Instalación
+---
 
-1. Clonar el repositorio:
+## ⚙️ Requisitos
+
+- Node.js v18+
+- npm v9+
+- Angular CLI v17+
+
+---
+
+## 🚀 Instrucciones de instalación
+
+1. Clona el repositorio:
    ```bash
-   git clone "https://github.com/dbivol1/Solemne2"
-   cd Solemne-2-Aplicaciones
-   ```
-
-2. Instalar dependencias:
-   ```bash
-   npm install
-   ```
-
-3. Iniciar el servidor de desarrollo:
-   ```bash
-   ng serve
-   ```
-
-4. Abrir el navegador en `http://localhost:4200`
-
-## Ejecución con Docker
-
-1. Construir la imagen:
-   ```bash
-   docker build -t Solemne-2-Aplicaciones .
-   ```
-
-2. Ejecutar el contenedor:
-   ```bash
-   docker run -p 4200:80 Solemne-2-Aplicaciones
-   ```
-
-3. Abrir el navegador en `http://localhost:4200`
-
-## Estructura del proyecto
-
-```
-src/
-├── app/
-│   ├── core/                  # Servicios core, modelos
-│   │   ├── services/
-│   │   └── models/
-│   ├── shared/                # Componentes compartidos
-│   │   ├── components/
-│   │   ├── directives/
-│   │   └── pipes/
-│   ├── features/              # Módulos de características
-│   │   ├── dashboard/
-│   │   ├── projects/
-│   │   ├── deliverables/
-│   │   └── notifications/
-│   ├── app.ts
-│   ├── app.html
-│   ├── app.scss
-│   ├── app.config.ts
-│   └── app.routes.ts
-├── assets/                    # Imágenes, iconos, etc.
-└── styles.scss                # Estilos globales
-```
-
-## Contribución
-
-1. Crear una rama para la nueva funcionalidad:
-   ```bash
-   git checkout -b feature/nombre-funcionalidad
-   ```
-
-2. Realizar cambios y commits:
-   ```bash
-   git commit -m "Descripción de los cambios"
-   ```
-
-3. Enviar la rama al repositorio:
-   ```bash
-   git push origin feature/nombre-funcionalidad
-   ```
-
-4. Crear un Pull Request en GitHub.
-
-
-
+   git clone https://github.com/dbivol1/Solemne2.git
+   cd Solemne2
